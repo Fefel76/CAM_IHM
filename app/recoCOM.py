@@ -1,18 +1,16 @@
 import time
 import logging
 from flask import Flask, render_template, request
-import json
-import socket
 import requests
 from requests.exceptions import HTTPError
-from confidentialTapo import privacyTapo
+from app.confidentialTapo import privacyTapo
 import pickle
 
 #logging.basicConfig(level=logging.DEBUG, filename="./log/callAPI.log", filemode="w")
 
 logging.info("Flask démarré")
 app= Flask(__name__)
-pickle.dump("True", open("./videos/record.txt", "wb"))
+pickle.dump("True", open("videos/record.txt", "wb"))
 # Variables générales
 ListSMS = {"Maribel": "checked", "Biquet": "checked", "Fouine": "checked"}
 
@@ -48,7 +46,7 @@ def hello():
 @app.route("/detection/status", methods=['GET'])
 def getStatus():
 
-    with open('./videos/record.txt', 'rb') as f:
+    with open('videos/record.txt', 'rb') as f:
         record = pickle.load(f)
 
     return record
@@ -119,7 +117,7 @@ def getStart():
 
     try:
 
-        pickle.dump("True", open("./videos/record.txt", "wb"))
+        pickle.dump("True", open("videos/record.txt", "wb"))
     except:
         logging.error("Erreur Pickle pour activer")
     else:
@@ -140,7 +138,7 @@ def getPause():
 
     time.sleep(1)
     try:
-        pickle.dump("False", open("./videos/record.txt", "wb"))
+        pickle.dump("False", open("videos/record.txt", "wb"))
     except:
         logging.error("Erreur Pickle pour desactiver")
     else:
