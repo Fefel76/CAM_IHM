@@ -3,13 +3,9 @@ ENV TZ="Europe/Paris"
 RUN apt-get update && apt install -y git
 
 RUN git clone https://github.com/Fefel76/IHM_recoCAM.git
-WORKDIR IHM_recoCAM
-WORKDIR app
+#WORKDIR IHM_recoCAM
 
-RUN pip3 install -r requirements.txt
+#RUN pip3 install -r requirements.txt
 
-
-
-
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
-CMD ["/bin/bash"]
+#CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
+#CMD ["/bin/bash"]
