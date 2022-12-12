@@ -9,8 +9,6 @@ WORKDIR IHM_recoCAM
 
 RUN pip3 install -r requirements.txt
 
-RUN groupadd -r user && useradd -r -g user user && RUN chown -R user:user *
-USER user
 
 WORKDIR app
 
