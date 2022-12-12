@@ -1,7 +1,6 @@
 FROM python:3.8.16-slim
 ENV TZ="Europe/Paris"
-#RUN apt-get update
-#RUN apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get update
 RUN apt install -y git
 
 RUN git clone https://github.com/Fefel76/IHM_recoCAM.git
