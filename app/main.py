@@ -3,7 +3,7 @@ import logging
 from flask import Flask, render_template, request
 import requests
 from requests.exceptions import HTTPError
-from app.confidentialTapo import privacyTapo
+from confidentialTapo import privacyTapo
 import pickle
 
 logging.basicConfig(level=logging.DEBUG, filename="IHM.log", filemode="w")
