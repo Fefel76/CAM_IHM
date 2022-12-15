@@ -6,7 +6,7 @@ from requests.exceptions import HTTPError
 from confidentialTapo import privacyTapo
 import pickle
 
-logging.basicConfig(level=logging.DEBUG, filename="IHM.log", filemode="w")
+logging.basicConfig(level=logging.DEBUG, filename="./log/IHM.log", filemode="w")
 
 logging.info("Flask démarré")
 app= Flask(__name__)
@@ -149,6 +149,6 @@ def getPause():
     status = getStatus()
     return render_template('index.html', status=status, ListSMS=ListSMS)
 
-app.run(debug=False, host="0.0.0.0")
+app.run(debug=True, host="0.0.0.0")
 
 

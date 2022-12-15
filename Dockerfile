@@ -5,6 +5,8 @@ RUN apt-get update && apt install -y git
 RUN git clone https://github.com/Fefel76/IHM_recoCAM.git
 WORKDIR IHM_recoCAM/app
 
+RUN mkdir ./log
+
 RUN pip3 install -r requirements.txt
 ENV FLASK_APP=main.py
 
