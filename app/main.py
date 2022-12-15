@@ -123,6 +123,7 @@ def getStart():
     else:
         logging.info("Activation option RECORD")
 
+    call_api("http://localhost:5001/sms?msg=Activation%20des%20caméras")
 
     status=getStatus()
     return render_template('index.html',status=status, ListSMS=ListSMS)
@@ -144,7 +145,7 @@ def getPause():
     else:
         logging.info("Désactivation option RECORD")
 
-
+    call_api("http://localhost:5000/sms?msg=Désactivation%20des%20caméras")
 
     status = getStatus()
     return render_template('index.html', status=status, ListSMS=ListSMS)
