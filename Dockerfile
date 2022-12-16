@@ -6,6 +6,7 @@ RUN git clone https://github.com/Fefel76/IHM_recoCAM.git
 WORKDIR IHM_recoCAM/app
 
 RUN mkdir ./log
+RUN mkdir ./videos
 
 RUN pip3 install -r requirements.txt
 ENV FLASK_APP=main.py
