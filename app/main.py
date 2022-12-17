@@ -6,7 +6,7 @@ from requests.exceptions import HTTPError
 from confidentialTapo import privacyTapo
 import pickle
 
-logging.basicConfig(level=logging.DEBUG, filename="./log/IHM.log", filemode="w")
+logging.basicConfig(level=logging.DEBUG, filename="./log/IHM.log", filemode="w",format='%(asctime)s -- %(funcName)s -- %(process)d -- %(levelname)s -- %(message)s')
 
 logging.info("Flask démarré")
 app= Flask(__name__)
