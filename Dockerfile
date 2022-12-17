@@ -5,6 +5,7 @@ RUN apt-get update && apt install -y git
 RUN git clone https://github.com/Fefel76/CAM_IHM.git
 WORKDIR CAM_IHM/app
 
+#création des répertoires
 RUN mkdir ./log
 RUN mkdir ./videos
 
