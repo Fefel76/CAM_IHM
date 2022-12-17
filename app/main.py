@@ -20,7 +20,7 @@ def call_api(url):
 
         response = requests.get(url)
         response.raise_for_status()
-        logging.debug("Requête : %s \n Statut : %s \n Contenu : %s ", url, response.status_code, response.content)
+        logging.debug("Requête : %s \n Statut : %s \n ", url, response.status_code)
 
         # Gestion des exceptions
     except HTTPError as http_err:
