@@ -17,6 +17,11 @@ ListSMS = {"Maribel": "checked", "Biquet": "checked", "Fouine": "checked"}
 
 # fonction api
 def call_api(url):
+    """
+    envoie une requete à une API via URL
+    :param url: @URL sous forme texte
+    :return: réponse status_code et content
+    """
     try:
 
         response = requests.get(url)
@@ -33,8 +38,9 @@ def call_api(url):
     else:
         logging.info('Appel réussi de la requête : %s', url)
         return response.status_code, response.content
-#Simulateur de l'API de gestion de detection
 
+
+#TODO réseaux IP DOCKER
 def get_IP():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
