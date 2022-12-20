@@ -36,8 +36,9 @@ def call_api(url):
 #Simulateur de l'API de gestion de detection
 
 def get_IP():
-
-    return socket.gethostbyname(socket.gethostname())
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
 
 @app.route("/")
 def hello():
