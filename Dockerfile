@@ -1,6 +1,7 @@
-FROM python:3.8.16-slim
-ENV TZ="Europe/Paris"
-RUN apt-get update && apt install -y git
+FROM mypython
+#FROM python:3.8.16-slim
+#ENV TZ="Europe/Paris"
+#RUN apt-get update && apt install -y git
 
 RUN git clone https://github.com/Fefel76/CAM_IHM.git
 WORKDIR CAM_IHM/app
