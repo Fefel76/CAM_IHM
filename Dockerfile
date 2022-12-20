@@ -7,8 +7,7 @@ RUN git clone https://github.com/Fefel76/CAM_IHM.git
 WORKDIR CAM_IHM
 EXPOSE 5001
 #création des répertoires
-RUN mkdir ./log
-RUN mkdir ./videos
+RUN mkdir ./log && mkdir ./videos && mkdir ./conf
 
 RUN pip3 install -r requirements.txt
 ENV FLASK_APP=main.py

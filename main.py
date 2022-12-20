@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG, filename="./log/IHM.log", filemode="w",
 
 logging.info("Flask démarré")
 app= Flask(__name__)
-pickle.dump("on", open("videos/record.txt", "wb"))
+pickle.dump("on", open("conf/record.txt", "wb"))
 # Variables générales
 ListSMS = {"Maribel": "checked", "Biquet": "checked", "Fouine": "checked"}
 
@@ -57,7 +57,7 @@ def hello():
 @app.route("/detection/status", methods=['GET'])
 def getStatus():
 
-    with open('videos/record.txt', 'rb') as f:
+    with open('conf/record.txt', 'rb') as f:
         record = pickle.load(f)
 
     return record
@@ -128,7 +128,7 @@ def getStart():
 
     try:
 
-        pickle.dump("on", open("videos/record.txt", "wb"))
+        pickle.dump("on", open("conf/record.txt", "wb"))
     except:
         logging.error("Erreur Pickle pour activer")
     else:
@@ -150,7 +150,7 @@ def getPause():
 
     time.sleep(1)
     try:
-        pickle.dump("off", open("videos/record.txt", "wb"))
+        pickle.dump("off", open("conf/record.txt", "wb"))
     except:
         logging.error("Erreur Pickle pour desactiver")
     else:
