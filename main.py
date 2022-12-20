@@ -5,6 +5,7 @@ import requests
 from requests.exceptions import HTTPError
 from confidentialTapo import privacyTapo
 import pickle
+import socket
 
 logging.basicConfig(level=logging.DEBUG, filename="./log/IHM.log", filemode="w",format='%(asctime)s -- %(funcName)s -- %(process)d -- %(levelname)s -- %(message)s')
 
@@ -34,13 +35,15 @@ def call_api(url):
         return response.status_code, response.content
 #Simulateur de l'API de gestion de detection
 
+def get_IP():
 
+    return socket.gethostbyname(socket.gethostname())
 
 @app.route("/")
 def hello():
     status = getStatus()
 
-    return render_template('index.html', status=status, ListSMS=ListSMS)
+    return render_template('index.html', status=status, ListSMS=ListSMS,ip=get_IP())
 
 
 @app.route("/detection/status", methods=['GET'])
@@ -72,7 +75,7 @@ def listSMS():
     logging.debug("Checked", ListSMS)
 
     status = getStatus()
-    return render_template('index.html', status=status, ListSMS=ListSMS)
+    return render_template('index.html', status=status, ListSMS=ListSMS,ip=get_IP())
 
 @app.route("/sms", methods=['GET'])
 def getSMS():
@@ -101,7 +104,7 @@ def getSMS():
         call_api("https://smsapi.free-mobile.fr/sendmsg?user=20226894&pass=HIh0RvwSUqE80x&msg="+msg)
 
     status = getStatus()
-    return render_template('index.html', status=status, ListSMS=ListSMS)
+    return render_template('index.html', status=status, ListSMS=ListSMS,ip=get_IP())
 
 
 @app.route("/detection/start", methods=['GET'])
@@ -126,7 +129,7 @@ def getStart():
     call_api("http://localhost:5000/sms?msg=Activation%20des%20caméras")
 
     status=getStatus()
-    return render_template('index.html',status=status, ListSMS=ListSMS)
+    return render_template('index.html',status=status, ListSMS=ListSMS,ip=get_IP())
 
 @app.route("/detection/pause", methods=['GET'])
 def getPause():
@@ -148,7 +151,7 @@ def getPause():
     call_api("http://localhost:5000/sms?msg=Désactivation%20des%20caméras")
 
     status = getStatus()
-    return render_template('index.html', status=status, ListSMS=ListSMS)
+    return render_template('index.html', status=status, ListSMS=ListSMS,ip=get_IP())
 
 if __name__=='__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)
