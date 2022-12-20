@@ -40,11 +40,12 @@ def call_api(url):
         return response.status_code, response.content
 
 
-#TODO réseaux IP DOCKER
+#TODO réseaux IP DOCKER, cf docker network et run --link
 def get_IP():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
+    return "192.168.0.1"
+    # return s.getsockname()[0]
 
 @app.route("/")
 def hello():
@@ -111,7 +112,7 @@ def getSMS():
         call_api("https://smsapi.free-mobile.fr/sendmsg?user=20226894&pass=HIh0RvwSUqE80x&msg="+msg)
 
     status = getStatus()
-    return render_template('index.html', status=status, ListSMS=ListSMS,ip=get_IP())
+    return render_template('index.html', status=status, ListSMS=ListSMS, ip=get_IP())
 
 
 @app.route("/detection/start", methods=['GET'])
