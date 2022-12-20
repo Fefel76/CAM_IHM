@@ -44,7 +44,7 @@ def call_api(url):
 def get_IP():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
-    return "192.168.0.1"
+    return "192.168.1.18"
     # return s.getsockname()[0]
 
 @app.route("/")
