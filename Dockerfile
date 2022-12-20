@@ -5,7 +5,7 @@ FROM mypython
 
 RUN git clone https://github.com/Fefel76/CAM_IHM.git
 WORKDIR CAM_IHM
-
+EXPOSE 5001
 #création des répertoires
 RUN mkdir ./log
 RUN mkdir ./videos
