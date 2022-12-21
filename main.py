@@ -11,9 +11,13 @@ logging.basicConfig(level=logging.DEBUG, filename="./log/IHM.log", filemode="w",
 
 logging.info("Flask démarré")
 app= Flask(__name__)
-pickle.dump("on", open("conf/record.txt", "wb"))
+etat = "on"
+
+records = {"CAM": etat, "salon": etat, "garage": etat, "piscine": etat}
+pickle.dump(records, open("conf/record.txt", "wb"))
 # Variables générales
 ListSMS = {"Maribel": "checked", "Biquet": "checked", "Fouine": "checked"}
+
 
 # fonction api
 def call_api(url):
@@ -58,10 +62,31 @@ def hello():
 def getStatus():
 
     with open('conf/record.txt', 'rb') as f:
-        record = pickle.load(f)
+        records = pickle.load(f)
 
-    return record
+    for c, v in records.items():
+        if v == "on":
+            records[c] = "checked"
 
+    return records
+
+@app.route("/listcam", methods=['GET'])
+def listCAM():
+    names=('salon','garage','piscine')
+    with open('conf/record.txt', 'rb') as f:
+        records = pickle.load(f)
+    for n in names:
+        if request.args.getlist(n):
+            records[n]="on"
+        else:
+            records[n]="off"
+
+
+    pickle.dump(records, open("conf/record.txt", "wb"))
+    logging.info(records)
+
+    status = getStatus()
+    return render_template('index.html', status=status, ListSMS=ListSMS,ip=get_IP())
 
 @app.route("/listsms", methods=['GET'])
 def listSMS():
@@ -93,7 +118,7 @@ def getSMS():
     except:
         msg="test par défaut"
 
-    logging.debug("Message reçu :", msg)
+    logging.debug("Message reçu :"+msg)
 
 
     #Maribel
@@ -114,21 +139,21 @@ def getSMS():
     status = getStatus()
     return render_template('index.html', status=status, ListSMS=ListSMS, ip=get_IP())
 
-
+#TODO intégration des records individuel
 @app.route("/detection/start", methods=['GET'])
 def getStart():
 
-
+    etat="on"
+    records={"CAM":etat,"salon":etat,"garage":etat,"piscine":etat}
     try:
-        privacyTapo(False)
+        privacyTapo(enabled=False)
     except:
         logging.error("Erreur lors de l'appel fonction privacy de TAPO")
 
     time.sleep(5)  # décompte de 5 secondes avant activation
 
     try:
-
-        pickle.dump("on", open("conf/record.txt", "wb"))
+        pickle.dump(records, open("conf/record.txt", "wb"))
     except:
         logging.error("Erreur Pickle pour activer")
     else:
@@ -141,16 +166,16 @@ def getStart():
 
 @app.route("/detection/pause", methods=['GET'])
 def getPause():
-
-
+    etat = "off"
+    records = {"CAM": etat, "salon": etat, "garage": etat, "piscine": etat}
     try:
-        privacyTapo(True)
+        privacyTapo(enabled=True)
     except:
         logging.debug("Erreur lors de l'appel fonction privacy de TAPO")
 
     time.sleep(1)
     try:
-        pickle.dump("off", open("conf/record.txt", "wb"))
+        pickle.dump(records, open("conf/record.txt", "wb"))
     except:
         logging.error("Erreur Pickle pour desactiver")
     else:

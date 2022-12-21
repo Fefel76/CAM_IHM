@@ -19,6 +19,7 @@ def privacyTapo(enabled):
     cam2 = "192.168.1.15"  # ip of the camera, example: 192.168.1.52
     cam3 = "192.168.1.16"  # ip of the camera, example: 192.168.1.52
 
+
     try:
         garage = Tapo(cam2, "admin", password)
     except:
@@ -45,6 +46,7 @@ def privacyTapo(enabled):
     if (enabled):
         try:
             garage.setPrivacyMode(True)
+
         except:
             logging.error("Erreur lors du passage en mode confidentiel de la caméra GARAGE")
         try:
